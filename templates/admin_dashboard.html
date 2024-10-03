@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>Admin Dashboard</h2>
+<p>Welcome, {{ current_user.username }}! You are logged in as an Admin.</p>
+
+<h3>Manage Products</h3>
+<a href="{{ url_for('add_product') }}">Add New Product</a>
+
+<h3>Sales History</h3>
+<a href="{{ url_for('sales_history') }}">View Sales History</a>
+
+<h3>Current Products</h3>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>Add New Product</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.name.label }} {{ form.name(size=32) }}<br>
+    {{ form.price.label }} {{ form.price(size=32) }}<br>
+    {{ form.stock.label }} {{ form.stock(size=32) }}<br>
+    {{ form.submit() }}
+</form>
+{% endblock %}

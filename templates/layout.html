@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2-State POS System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="{{ url_for('home') }}">Home</a>
+            {% if current_user.is_authenticated %}
+                <!-- Logout link moved to the sidebar -->
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </nav>
+
+        <div class="content">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <li class="{{ 'success' if 'success' in message else 'danger' if 'failed' in message else 'info' }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
+
+        <div class="sidebar">
+            <h2>Admin Dashboard</h2>
+            <p>Welcome, {{ current_user.username }}! You are logged in as an Admin.</p>
+            <h3>Navigation</h3>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('add_product') }}">Manage Products</a></li>
+                <li><a href="{{ url_for('sales_history') }}">Sales History</a></li>
+            </ul>
+            {% if current_user.is_authenticated %}
+                <div class="logout-container">
+                    <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
